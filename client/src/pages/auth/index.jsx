@@ -4,12 +4,14 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { apiClient } from '@/lib/api-client'
+import { useAppStore } from '@/store'
 import { LOGIN_ROUTE, SIGNUP_ROUTE } from '@/utils/constants'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 const Auth = () => {
     const navigate = useNavigate()
+    const {setUserInfo} = useAppStore()
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmpassword, setConfirmPassword] = useState("")
@@ -45,6 +47,7 @@ const Auth = () => {
         if (validateLogin()) {
             const res = await apiClient.post(LOGIN_ROUTE, { email, password }, { withCredentials: true })
             if (res.data.user.id) {
+                setUserInfo(res.data.user)
                 if (res.data.user.profileSetup) navigate("/chat")
                 else navigate("/profile")
             }
@@ -54,8 +57,10 @@ const Auth = () => {
     const handleSignup = async () => {
         if (validateSignup()) {
             const res = await apiClient.post(SIGNUP_ROUTE, { email, password }, { withCredentials: true })
-            if (res.status === 201) {
-                navigate("/profile")
+            if (res.status === 201 && res.data.user.id) {
+                setUserInfo(res.data.user)
+               
+                  navigate("/profile")   
             }
             
         }

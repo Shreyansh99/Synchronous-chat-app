@@ -8,15 +8,17 @@ import authRoutes from './routes/AuthRoutes.js'
 dotenv.config()
 
 const app =express()
+app.use(cookieParser())
 const port = 5000
 
+app.use(express.json())
 app.use(cors({
     origin : [process.env.ORIGIN],
     methods : ["GET","POST","PUT","PATCH","DELETE"],
     credentials : true,
 }))
-app.use(cookieParser())
-app.use(express.json())
+
+
 
 app.use('/api/auth', authRoutes)
 
