@@ -71,7 +71,7 @@ const Auth = () => {
   <div className='min-h-screen w-full flex flex-col md:flex-row items-center justify-center  bg-gradient-to-r from-gray-900 to-gray-950 gap-10 px-4 md:px-0'>
    <div className="text-center md:text-left">
     <h1 className="text-4xl text-white md:text-6xl font-bold mb-6">
-     Connect Instantly with <span className="text-blue-500">ChatApp</span>
+     Connect Instantly with <span className="text-blue-500">FunChat</span>
     </h1>
     <p className="text-xl text-gray-300 mb-8">
      Experience seamless communication with our lightning-fast, secure, and
